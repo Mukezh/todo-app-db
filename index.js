@@ -4,7 +4,8 @@ const jwt = require('jsonwebtoken');
 const JWT_SECRET = "belhbleh"
 const mongoose = require('mongoose');
 
-mongoose.connect("mongodb+srv://mukeshoffcl:YaImBo78vQ3zVZBT@cluster0.zytcf.mongodb.net/todo-app-database")
+mongoose.connect('')
+
 
 const app = express();
 app.use(express.json());
@@ -14,15 +15,19 @@ app.post("/signup", async function(req,res) {
     const email = req.body.email;
     const password = req.body.password;
 
-    await UserModel.create({
-        name: name,
-        email: email,
-        password: password
-    })
-
+        await UserModel.create({
+            name: name,
+            email: email,
+            password: password
+        });
+ 
+    // console.log(name);
+    // console.log(email);
+    // console.log(password);
     res.json({
         message: "You are logged in"
     })
+
 });
 
 app.post("/signin", function(req,res) {
