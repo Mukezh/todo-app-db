@@ -1,25 +1,24 @@
 const express = require('express');
 const { UserModel, TodoModel } = require('./db');
 const jwt = require('jsonwebtoken');
-const JWT_SECRET = "belhbleh"
+const JWT_SECRET = "belhbleh";
 const mongoose = require('mongoose');
 
-mongoose.connect('')
-
+mongoose.connect('mongodb+srv://mukeshoffcl:5vO4AcrmALtzT2ab@cluster0.zytcf.mongodb.net/todo');
 
 const app = express();
 app.use(express.json());
 
-app.post("/signup", async function(req,res) {
+app.post("/signup", async function(req, res) {
     const name = req.body.name;
     const email = req.body.email;
     const password = req.body.password;
 
-        await UserModel.create({
-            name: name,
-            email: email,
-            password: password
-        });
+    await UserModel.create({
+        name: name,
+        email: email,
+        password: password
+    });
  
     // console.log(name);
     // console.log(email);
@@ -30,11 +29,11 @@ app.post("/signup", async function(req,res) {
 
 });
 
-app.post("/signin", function(req,res) {
+app.post("/signin", async function(req,res) {
     const email = req.body.email;
     const password = req.body.email;
 
-    const user = UserModel.findOne({
+    const user = await UserModel.findOne({
         email: email,
         password: password 
     })
